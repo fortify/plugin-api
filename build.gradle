@@ -1,8 +1,26 @@
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'osgi'
+buildscript {
+  repositories {
+        jcenter()
+   }
+}
 
+plugins {
+    id "com.jfrog.bintray" version "1.7.3"
+}
+
+group = 'com.fortify'
 version = '1.0.1'
+
+allprojects {
+	repositories {
+		jcenter()
+	}
+	apply plugin: 'java'
+	apply plugin: 'idea'
+	apply plugin: 'osgi'
+	apply plugin: 'maven'
+	apply plugin: 'maven-publish'
+}
 
 jar {
     manifest {
@@ -37,4 +55,34 @@ if (JavaVersion.current().isJava8Compatible()) {
         //noinspection SpellCheckingInspection
         options.addStringOption('Xdoclint:none', '-quiet')
     }
+}
+
+publishing {
+	publications {
+		BintrayPublication(MavenPublication) {
+			from components.java
+			groupId group
+            artifactId 'plugin-api'
+            version version
+		}
+	}
+}
+
+bintray {
+	user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+	key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+	publications = ['BintrayPublication']
+	pkg {
+		repo = 'fortify-public'
+		name = 'plugin-api'
+		userOrg = user
+		licenses = ['Apache-2.0']
+		vcsUrl = 'https://github.com/FortifySaTPublish/plugin-api.git'
+		labels = []
+		publicDownloadNumbers = true
+		version {
+			name = version
+			desc = 'SSC plugin API release'
+		}
+	}
 }
