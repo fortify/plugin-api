@@ -1,0 +1,40 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'osgi'
+
+version = '1.0.1'
+
+jar {
+    manifest {
+        name = 'Plugin API'
+        instruction 'Bundle-Vendor', 'Fortify'
+        instruction 'Bundle-Description', 'Fortify Plugin API'
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives(sourcesJar) {
+        type 'source'
+    }
+    archives(javadocJar) {
+        type 'javadoc'
+    }
+}
+
+if (JavaVersion.current().isJava8Compatible()) {
+    tasks.withType(Javadoc) {
+        // disable the crazy super-strict doclint tool in Java 8
+        //noinspection SpellCheckingInspection
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
+}
