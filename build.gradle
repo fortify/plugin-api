@@ -61,9 +61,11 @@ publishing {
 	publications {
 		BintrayPublication(MavenPublication) {
 			from components.java
+			artifact sourcesJar
+			artifact javadocJar
 			groupId group
-            artifactId 'plugin-api'
-            version version
+			artifactId 'plugin-api'
+			version version
 		}
 	}
 }
@@ -82,6 +84,7 @@ bintray {
 		publicDownloadNumbers = true
 		version {
 			name = version
+			vcsTag = '1.0.1'
 			desc = 'SSC plugin API release'
 		}
 	}
