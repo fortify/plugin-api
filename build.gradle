@@ -8,7 +8,7 @@ plugins {
     id "com.jfrog.bintray" version "1.7.3"
 }
 
-group = 'com.fortify'
+group = 'com.fortify.plugin'
 version = '1.0.1'
 
 allprojects {
