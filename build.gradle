@@ -79,7 +79,7 @@ bintray {
 		name = 'plugin-api'
 		userOrg = user
 		licenses = ['Apache-2.0']
-		vcsUrl = 'https://github.com/FortifySaTPublish/plugin-api.git'
+		vcsUrl = 'https://github.com/fortify/plugin-api.git'
 		labels = []
 		publicDownloadNumbers = true
 		version {
