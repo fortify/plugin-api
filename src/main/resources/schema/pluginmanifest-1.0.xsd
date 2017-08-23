@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- (c) Copyright [2017] EntIT Software LLC
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -9,7 +10,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<?xml version="1.0" encoding="UTF-8"?>
 <xs:schema targetNamespace="xmlns://www.fortify.com/schema/pluginmanifest-1.0.xsd"
            xmlns:tns="xmlns://www.fortify.com/schema/pluginmanifest-1.0.xsd"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
