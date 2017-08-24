@@ -1,41 +1,38 @@
-buildscript {
-  repositories {
-        jcenter()
-   }
-}
-
 plugins {
     id "com.jfrog.bintray" version "1.7.3"
 }
 
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'osgi'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
 group = 'com.fortify'
 version = '1.0.1'
 
-allprojects {
-	repositories {
-		jcenter()
-	}
-	apply plugin: 'java'
-	apply plugin: 'idea'
-	apply plugin: 'osgi'
-	apply plugin: 'maven'
-	apply plugin: 'maven-publish'
+ext {
+    artifactName = 'plugin-api'
 }
 
 jar {
+    baseName = artifactName
     manifest {
         name = 'Plugin API'
+        instructionReplace 'Bundle-SymbolicName', 'com.fortify.plugin.api'
         instruction 'Bundle-Vendor', 'Fortify'
         instruction 'Bundle-Description', 'Fortify Plugin API'
     }
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
+    baseName = artifactName
     classifier = 'sources'
     from sourceSets.main.allSource
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
+    baseName = artifactName
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
@@ -73,16 +70,16 @@ bintray {
 	key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
 	publications = ['BintrayPublication']
 	pkg {
-		repo = 'fortify-public'
+		repo = 'maven-public'
 		name = 'plugin-api'
 		userOrg = user
 		licenses = ['Apache-2.0']
-		vcsUrl = 'https://github.com/FortifySaTPublish/plugin-api.git'
+		vcsUrl = 'https://github.com/fortify/plugin-api.git'
 		labels = []
 		publicDownloadNumbers = true
 		version {
 			name = version
-			desc = 'SSC plugin API release'
+			desc = 'SSC plugin API'
 		}
 	}
 }
