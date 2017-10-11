@@ -62,7 +62,7 @@ publishing {
 			artifact javadocJar
 			groupId group
 			artifactId 'plugin-api'
-			version version
+			version '1.0.1'
 		}
 	}
 }
@@ -74,7 +74,7 @@ bintray {
 	pkg {
 		repo = 'maven-public'
 		name = 'plugin-api'
-		userOrg = user
+		userOrg = 'fortify'
 		licenses = ['Apache-2.0']
 		vcsUrl = 'https://github.com/fortify/plugin-api.git'
 		labels = []
