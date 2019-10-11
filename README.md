@@ -13,3 +13,11 @@
 
 Please see [parser example project](https://github.com/fortify/sample-parser "Sample Parser")
 
+## Currently Available Parser Plugins:
+- [Sonatype](<https://marketplace.microfocus.com/fortify/content/sonatype-nexus-lifecycle-integration-with-ssc>) 
+- [OWASP Dependency Check](<https://github.com/skamani/FortifySSCPlugin>)
+- [OWASP Dependency Track](<https://github.com/DependencyTrack/fortify-ssc-plugin>)
+- [Static Analysis Results Interexchange Format (SARIF)](<https://github.com/fortify-ps/fortify-ssc-parser-sarif>)
+- [BlackDuck](<https://github.com/blackducksoftware/hub-fortify-parser>) 
+- [Synk](<https://github.com/snyk-partners/fortify-snyk-parser>)
+
