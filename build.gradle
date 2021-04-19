@@ -1,38 +1,36 @@
 plugins {
-    id "com.jfrog.bintray" version "1.7.3"
+	id 'java'
+	id 'idea'
+	id 'maven-publish'
+	id "com.jfrog.bintray" version "1.7.3"
+	id "biz.aQute.bnd.builder" version "5.3.0"
 }
 
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'osgi'
-apply plugin: 'maven'
-apply plugin: 'maven-publish'
+group 'com.fortify.plugin'
+version '1.0.1'
+description 'Fortify Plugin API'
 
-group = 'com.fortify.plugin'
-version = '1.0.1'
-
-ext {
-    artifactName = 'plugin-api'
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 jar {
-    baseName = artifactName
-    manifest {
-        name = 'Plugin API'
-        instructionReplace 'Bundle-SymbolicName', 'com.fortify.plugin.api'
-        instruction 'Bundle-Vendor', 'Fortify'
-        instruction 'Bundle-Description', 'Fortify Plugin API'
-    }
+    bnd (
+        'Bundle-Name': 'Plugin API',
+        'Bundle-SymbolicName': 'com.fortify.plugin.api',
+        'Bundle-Vendor': 'Fortify',
+        'Bundle-Description': 'Fortify Plugin API',
+		'-exportcontents': 'com.fortify.*'
+    )
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
-    baseName = artifactName
     classifier = 'sources'
     from sourceSets.main.allSource
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    baseName = artifactName
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
@@ -60,9 +58,6 @@ publishing {
 			from components.java
 			artifact sourcesJar
 			artifact javadocJar
-			groupId group
-			artifactId 'plugin-api'
-			version '1.0.1'
 		}
 	}
 }
