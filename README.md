@@ -23,3 +23,19 @@
 	* https://github.com/topics/fortify-parser-plugin
 * The [fortify-ssc-parser-util](https://github.com/fortify-ps/fortify-ssc-parser-util) project may be useful for developing parser plugins that need to parse JSON or XML data, however please note that this project is not officially endorsed or supported in any way
 
+## Information for Developers
+
+* `./gradlew build`: Build the plugin
+* `./gradlew publishToMavenLocal`: Publish the plugin to local Maven repository
+    * Add `mavenLocal()` repository to a parser plugin to use a locally built version for testing
+* `./gradlew publishToOSSRH closeOSSRHStagingRepository`: Publish the plugin to OSSRH/Maven Central
+    * [.github/workflows/ci.yml](.github/workflows/ci.yml) automatically runs this on every push to the master branch
+    * Can be run manually to test the publishing process from other branches
+    * Requires the following Gradle properties to be set (use `ORG_GRADLE_PROJECT_` prefix to set these properties through environment variables):
+        * signingKey: Used to sign the artifacts
+        * signingPassword: Used to sign the artifacts
+        * OSSRHUsername: Used to publish to OSSRH
+        * OSSRHPassword: Used to publish to OSSRH
+    * If project.version ends with '-SNAPSHOT', the artifacts will end up at https://s01.oss.sonatype.org/content/repositories/snapshots/
+    * Release versions are published to an OSSRH staging repository and checked for Maven Central requirements
+        * Log in to https://s01.oss.sonatype.org/ to release the artifacts to Maven Central
