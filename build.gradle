@@ -1,38 +1,37 @@
 plugins {
-    id "com.jfrog.bintray" version "1.7.3"
+	id 'java'
+	id 'idea'
+	id 'maven-publish'
+	id 'signing'
+	id 'io.github.gradle-nexus.publish-plugin' version '1.0.0'
+	id "biz.aQute.bnd.builder" version "5.3.0"
 }
 
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'osgi'
-apply plugin: 'maven'
-apply plugin: 'maven-publish'
+group 'com.fortify.plugin'
+version '1.0.1.1'
+description 'Fortify Plugin API'
 
-group = 'com.fortify.plugin'
-version = '1.0.1'
-
-ext {
-    artifactName = 'plugin-api'
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 jar {
-    baseName = artifactName
-    manifest {
-        name = 'Plugin API'
-        instructionReplace 'Bundle-SymbolicName', 'com.fortify.plugin.api'
-        instruction 'Bundle-Vendor', 'Fortify'
-        instruction 'Bundle-Description', 'Fortify Plugin API'
-    }
+    bnd (
+        'Bundle-Name': 'Plugin API',
+        'Bundle-SymbolicName': 'com.fortify.plugin.api',
+        'Bundle-Vendor': 'Fortify',
+        'Bundle-Description': 'Fortify Plugin API',
+		'-exportcontents': 'com.fortify.*'
+    )
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
-    baseName = artifactName
     classifier = 'sources'
     from sourceSets.main.allSource
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    baseName = artifactName
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
@@ -56,33 +55,57 @@ if (JavaVersion.current().isJava8Compatible()) {
 
 publishing {
 	publications {
-		BintrayPublication(MavenPublication) {
+		mavenJava(MavenPublication) {
+			pom {
+				groupId = project.group
+				artifactId = project.name
+				name = project.name
+				version = project.version
+				description = project.description
+				url = 'https://github.com/fortify/plugin-api'
+				licenses {
+					license {
+						name = 'The Apache License, Version 2.0'
+						url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+					}
+				}
+				developers {
+					developer {
+						id = 'fortify'
+						name = 'Fortify'
+						email = 'fortify-oss@fortify.com'
+						organization = 'Micro Focus Fortify'
+						organizationUrl = 'https://www.microfocus.com/en-us/cyberres/application-security'
+					}
+				}
+				scm {
+					connection = "scm:git:https://github.com/fortify/${rootProject.name}.git"
+					developerConnection = "scm:git:https://github.com/fortify/${rootProject.name}.git"
+					url = "https://github.com/fortify/${rootProject.name}"
+				}
+			}
 			from components.java
 			artifact sourcesJar
 			artifact javadocJar
-			groupId group
-			artifactId 'plugin-api'
-			version '1.0.1'
 		}
 	}
 }
 
-bintray {
-	user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
-	key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
-	publications = ['BintrayPublication']
-	pkg {
-		repo = 'maven-public'
-		name = 'plugin-api'
-		userOrg = 'fortify'
-		licenses = ['Apache-2.0']
-		vcsUrl = 'https://github.com/fortify/plugin-api.git'
-		labels = []
-		publicDownloadNumbers = true
-		version {
-			name = version
-			vcsTag = '1.0.1'
-			desc = 'SSC plugin API release'
+// Sign using signingKey and signingPassword properties
+signing {
+	def signingKey = findProperty("signingKey")
+	def signingPassword = findProperty("signingPassword")
+	useInMemoryPgpKeys(signingKey, signingPassword)
+	required { gradle.taskGraph.hasTask("publishToOSSRH") }
+	sign publishing.publications.mavenJava
+}
+
+// Publish using OSSRHUsername and OSSRHPassword properties
+nexusPublishing {
+	repositories {
+		OSSRH {
+			nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+			snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
 		}
 	}
 }

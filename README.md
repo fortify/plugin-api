@@ -1,4 +1,9 @@
 # Fortify Software Security Center Plugin API
+
+## Version 1.0.1.1
+- Publish to Maven Central
+- Document additional resources
+
 ## Version 1.0.1
 - support for parser plugins
 - custom parser implementations can implement `com.fortify.plugin.spi.ParserPlugin`
@@ -10,6 +15,11 @@
   * Such packages include JAXB api and implementation, javax.activation, javax.annotation, javax.transaction, javax.xml.ws, and CORBA-related packages."
   * In particular, the “Bundle-ClassPath” of their plugin bundle manifest should include the dependency javaEE jars and the jars themselves must be stored inside the bundle (typically in a “libs” folder along with any other libraries their plugin depends on). 
 
+## Resources
 
-Please see [parser example project](https://github.com/fortify/sample-parser "Sample Parser")
+* The main [parser example project](https://github.com/fortify/sample-parser "Sample Parser") provides detailed instructions for developing parser plugins
+* Following links point to some parser implementations that could serve as further examples:
+    * https://github.com/sonatype-nexus-community/iq-fortify-parser
+	* https://github.com/topics/fortify-parser-plugin
+* The [fortify-ssc-parser-util](https://github.com/fortify-ps/fortify-ssc-parser-util) project may be useful for developing parser plugins that need to parse JSON or XML data, however please note that this project is not officially endorsed or supported in any way
 
