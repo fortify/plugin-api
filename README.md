@@ -32,10 +32,10 @@
     * [.github/workflows/ci.yml](.github/workflows/ci.yml) automatically runs this on every push to the master branch
     * Can be run manually to test the publishing process from other branches
     * Requires the following Gradle properties to be set (use `ORG_GRADLE_PROJECT_` prefix to set these properties through environment variables):
-        * signingKey: Used to sign the artifacts
-        * signingPassword: Used to sign the artifacts
-        * OSSRHUsername: Used to publish to OSSRH
-        * OSSRHPassword: Used to publish to OSSRH
-    * If project.version ends with '-SNAPSHOT', the artifacts will end up at https://s01.oss.sonatype.org/content/repositories/snapshots/
+        * `signingKey`: Used to sign the artifacts
+        * `signingPassword`: Used to sign the artifacts
+        * `OSSRHUsername`: Used to publish to OSSRH
+        * `OSSRHPassword`: Used to publish to OSSRH
+    * If project.version ends with `-SNAPSHOT`, the artifacts will end up at https://s01.oss.sonatype.org/content/repositories/snapshots/
     * Release versions are published to an OSSRH staging repository and checked for Maven Central requirements
-        * Log in to https://s01.oss.sonatype.org/ to release the artifacts to Maven Central
+        * Log in to https://s01.oss.sonatype.org/ with the same account used during publishing to verify the artifacts and release them to Maven Central
