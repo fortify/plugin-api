@@ -1,5 +1,9 @@
 # Fortify Software Security Center Plugin API
 
+## Version 1.0.2
+- Add optional ParserType element to IssueParser
+- Bump schema version to 1.1
+
 ## Version 1.0.1.1
 - Publish to Maven Central
 - Document additional resources
@@ -39,3 +43,21 @@
     * If project.version ends with `-SNAPSHOT`, the artifacts will end up at https://s01.oss.sonatype.org/content/repositories/snapshots/
     * Release versions are published to an OSSRH staging repository and checked for Maven Central requirements
         * Log in to https://s01.oss.sonatype.org/ with the same account used during publishing to verify the artifacts and release them to Maven Central
+
+## Open Source Issues in Fortify Software Security Center
+
+* For SSC to consider issues to be "Open Source", the parser plugin must add the element "&lt;parser-type&gt;DEPENDENCY_SCAN&lt;/parser-type&gt;" to the &lt;issue-parser&gt; element in the plugin's plugin.xml file.
+
+* The parser plugin must also include these custom attributes for the vulnerabilities:
+	- externalId: An ID for the issue, like a CVE ID
+	- cwes: Comma-separated list of CWE ID numbers(Only the numbers)
+	- externalUrl: An external URL for the vulnerability
+	- componentPurl: Package URL for the vulnerable component in the form "pkg:type/namespace/name@version"
+	- componentNamespace: Namespace of the vulnerable component.  This should match the namespace in the package URL
+	- componentName: Name of the vulnerable component.  This should match the name in the packge URL
+	- componentVersion: Version of the vulnerable component.  This should match the name in the package URL
+	- componentPackageType: Package type of the vulnerable component.  This should match the type in the package URL
+	- componentLicenses: The type of licenses for the vulnerable component
+	- invoked:  true/false value for whether or not the analyzed code calls this specific vulnerability
+	- controllable: true/false value for whether or not the analyzed code calls this specific vulnerability with user-controlled data
+	- evidence: Any supporting evidence that the analyzed code is vulnerable to this specific vulnerability
