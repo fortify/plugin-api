@@ -1,6 +1,6 @@
 # Fortify Software Security Center Plugin API
 
-## Version 1.0.2
+## Version 1.1.0
 - Add optional ParserType element to IssueParser
 - Bump schema version to 1.1
 
