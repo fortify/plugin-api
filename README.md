@@ -46,18 +46,18 @@
 
 ## Open Source Issues in Fortify Software Security Center
 
-* For SSC to consider issues to be "Open Source", the parser plugin must add the element "&lt;parser-type&gt;DEPENDENCY_SCAN&lt;/parser-type&gt;" to the &lt;issue-parser&gt; element in the plugin's plugin.xml file.
+* For SSC to consider issues as "Open Source" issues, the parser plugin must add the element "&lt;parser-type&gt;DEPENDENCY_SCAN&lt;/parser-type&gt;" to the &lt;issue-parser&gt; element in the plugin's plugin.xml file.
 
 * The parser plugin must also include these custom attributes for the vulnerabilities:
-	- externalId: An ID for the issue, like a CVE ID
-	- cwes: Comma-separated list of CWE ID numbers(Only the numbers)
-	- externalUrl: An external URL for the vulnerability
+	- externalId: An ID, such as a CVE ID, for the issue
+	- cwes: Comma-separated list of CWE IDs (numbers only)
+	- externalUrl: External URL for the vulnerability
 	- componentPurl: Package URL for the vulnerable component in the form "pkg:type/namespace/name@version"
 	- componentNamespace: Namespace of the vulnerable component.  This should match the namespace in the package URL
 	- componentName: Name of the vulnerable component.  This should match the name in the packge URL
 	- componentVersion: Version of the vulnerable component.  This should match the name in the package URL
 	- componentPackageType: Package type of the vulnerable component.  This should match the type in the package URL
-	- componentLicenses: The type of licenses for the vulnerable component
-	- invoked:  true/false value for whether or not the analyzed code calls this specific vulnerability
-	- controllable: true/false value for whether or not the analyzed code calls this specific vulnerability with user-controlled data
+	- componentLicenses: Type of licenses for the vulnerable component
+	- invoked:  true/false value for whether or not the analyzed code calls this specific issue
+	- controllable: true/false value for whether or not the analyzed code calls this specific issue with user-controlled data
 	- evidence: Any supporting evidence that the analyzed code is susceptible to this specific issue
