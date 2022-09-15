@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) Copyright 2017 Micro Focus or one of its affiliates.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<xs:schema targetNamespace="xmlns://www.fortify.com/schema/pluginmanifest-1.1.xsd"
+           xmlns:tns11="xmlns://www.fortify.com/schema/pluginmanifest-1.1.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+
+           xml:lang="EN"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           version="1.1">
+
+    <xs:simpleType name="ParserType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="STATIC"/>
+            <xs:enumeration value="DYNAMIC"/>
+            <xs:enumeration value="DEPENDENCY_SCAN"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ValueType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="STRING"/>
+            <xs:enumeration value="LONG_STRING"/>
+            <xs:enumeration value="DECIMAL"/>
+            <xs:enumeration value="DATE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ImageType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="icon"/>
+            <xs:enumeration value="logo"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="PluginId">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[\w\\.\\_\\-]*"/>
+            <xs:minLength value="1"/>
+            <xs:maxLength value="80"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ApiVersion">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(\d{1,2})(\.\d{1,4}){0,2}"/>
+            <xs:minLength value="1"/>
+            <xs:maxLength value="8"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="PluginVersion">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{1,9}(\.\d{1,9}(\.\d{1,9}(\.\d{1,19})?)?)?"/>
+            <xs:minLength value="1"/>
+            <xs:maxLength value="25"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="PluginName">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="80"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="PluginDescription">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="500"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="LanguageId">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(default)|([a-z]{2})|([a-z]{2}-[A-Z]{2})"/>
+            <xs:maxLength value="10"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="EngineType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Z0-9\\-\\_\\. ]+"/>
+            <xs:minLength value="1"/>
+            <xs:maxLength value="80"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- can allow cases like [3], [1.2 , 4.5), (1.2.3, 4.5.6) -->
+    <xs:simpleType name="SupportedEngineVersions">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(\(|\[)(\d{1,8})(\.\d{1,8}){0,2}(\s*,\s*(\d{1,8})(\.\d{1,8}){0,2})?(\)|\])"/>
+            <xs:minLength value="1"/>
+            <xs:maxLength value="40"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="VendorName">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="80"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="VendorUrl">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ViewTemplateDescription">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="250"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="plugin" type="tns11:PluginDescriptor"/>
+
+    <xs:complexType name="PluginDescriptor">
+        <xs:sequence>
+            <xs:element name="plugin-info" type="tns11:PluginInfo" nillable="false" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="issue-parser" type="tns11:IssueParser" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute type="tns11:PluginId" name="id" use="required"/>
+        <xs:attribute type="tns11:ApiVersion" name="api-version" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="PluginInfo">
+        <xs:sequence>
+            <xs:element type="tns11:PluginName" name="name" nillable="false" minOccurs="1" maxOccurs="1"/>
+            <xs:element type="tns11:PluginVersion" name="version" nillable="false" minOccurs="1" maxOccurs="1"/>
+            <xs:element type="xs:integer" name="data-version" nillable="false" minOccurs="1" maxOccurs="1"/>
+            <xs:element type="tns11:Vendor" name="vendor" nillable="false" minOccurs="1" maxOccurs="1"/>
+            <xs:element type="tns11:PluginDescription" name="description" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="tns11:Resources" name="resources" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Vendor">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="tns11:VendorName" name="name" use="required"/>
+                <xs:attribute type="tns11:VendorUrl" name="url" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="Resources">
+        <xs:sequence>
+            <xs:element type="tns11:Localization" name="localization" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="tns11:Images" name="images" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Localization">
+        <xs:sequence>
+            <xs:element type="tns11:Language" name="language" minOccurs="0" maxOccurs="200"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Language">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="tns11:LanguageId" name="id" use="required"/>
+                <xs:attribute type="xs:string" name="location" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="Images">
+        <xs:sequence>
+            <xs:element type="tns11:Image" name="image" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Image">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="tns11:ImageType" name="imageType" use="required"/>
+                <xs:attribute type="xs:string" name="location" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="ViewTemplate">
+        <xs:sequence>
+            <xs:element name="description" type="tns11:ViewTemplateDescription" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="location" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="IssueParser">
+        <xs:sequence>
+            <xs:element type="tns11:EngineType" name="engine-type" nillable="false" minOccurs="1" maxOccurs="1"/>
+            <xs:element type="tns11:SupportedEngineVersions" name="supported-engine-versions" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="tns11:ViewTemplate" name="view-template" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="tns11:ParserType" name="parser-type" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
