@@ -60,4 +60,4 @@
 	- componentLicenses: The type of licenses for the vulnerable component
 	- invoked:  true/false value for whether or not the analyzed code calls this specific vulnerability
 	- controllable: true/false value for whether or not the analyzed code calls this specific vulnerability with user-controlled data
-	- evidence: Any supporting evidence that the analyzed code is vulnerable to this specific vulnerability
+	- evidence: Any supporting evidence that the analyzed code is susceptible to this specific issue
