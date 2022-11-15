@@ -1,0 +1,19 @@
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+jar {
+    manifest {
+        bnd(
+            'Bundle-Name': 'Plugin API',
+            'Bundle-Vendor': 'Fortify',
+            'Bundle-Description': 'Fortify Plugin API',
+            'Bundle-SymbolicName': 'com.fortify.plugin-api',
+            'Export-Package': [
+                'com.fortify.plugin.api',
+                'com.fortify.plugin.spi',
+            ].join(','),
+        )
+    }
+}
