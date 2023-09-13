@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- (c) Copyright 2017 Micro Focus or one of its affiliates.
+<!-- Copyright 2017-2023 Open Text
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -10,7 +10,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-
 <xs:schema targetNamespace="xmlns://www.fortify.com/schema/pluginmanifest-1.1.xsd"
            xmlns:tns11="xmlns://www.fortify.com/schema/pluginmanifest-1.1.xsd"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"

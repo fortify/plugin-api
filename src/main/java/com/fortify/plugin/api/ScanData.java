@@ -1,5 +1,7 @@
 /*
- * (c) Copyright 2017 Micro Focus or one of its affiliates.
+ * Copyright 2017-2023 Open Text
+ */
+/*
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,6 +16,7 @@ package com.fortify.plugin.api;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -54,4 +57,11 @@ public interface ScanData {
      */
     InputStream getInputStream(Predicate<String> matcher) throws IOException;
 
+    /**
+     * Returns a URL for the specified ScanEntry
+     * @param scanEntry
+     * @return URL for the scan entry
+     * @since 23.2.0
+     */
+    URL getUrl(ScanEntry scanEntry);
 }
