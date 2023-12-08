@@ -1,5 +1,7 @@
 /*
- * (c) Copyright 2017 Micro Focus or one of its affiliates.
+ * Copyright 2017-2023 Open Text
+ */
+/*
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -9,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.fortify.plugin.api;
 
 import java.util.Date;
@@ -108,6 +110,15 @@ public interface ScanBuilder {
      * @return reference to this ScanBuilder instance.
      */
     ScanBuilder setEngineVersion(String engineVersion);
+
+    /**
+     * Set the ScanEntry of the SBOM file in the scan file.
+     * @param scanEntry scanEntry of the SBOM file.
+     * @param sbomType format and serialization of the SBOM file.
+     * @return reference to this ScanBuilder instance.
+     * @since 1.2.2320.0 (SSC 23.2.0)
+     */
+    ScanBuilder setSBOMEntry(ScanEntry scanEntry, SbomType sbomType);
 
     /**
      * Complete scan build process and notify plugin framework that scan is ready to be passed to SSC.

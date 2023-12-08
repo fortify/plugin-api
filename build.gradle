@@ -4,11 +4,11 @@ plugins {
 	id 'maven-publish'
 	id 'signing'
 	id 'io.github.gradle-nexus.publish-plugin' version '1.0.0'
-	id "biz.aQute.bnd.builder" version "6.3.1"
+	id "biz.aQute.bnd.builder" version "6.4.0"
 }
 
 group 'com.fortify.plugin'
-version '1.1.2220.0'
+version '1.2.2320.0'
 description 'Fortify Plugin API'
 
 apply from: 'bundle.gradle'

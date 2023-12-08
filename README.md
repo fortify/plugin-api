@@ -1,5 +1,9 @@
 # Fortify Software Security Center Plugin API
 
+## Version 1.2.2320
+- Add setSBOMEntry() method to ScanBuilder
+- The plugin-api version 1.2 is only supported since SSC version 23.2.0
+
 ## Version 1.1.2220
 - Add optional ParserType element to IssueParser
 - Bump schema and plugin-api version to 1.1
